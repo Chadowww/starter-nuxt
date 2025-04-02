@@ -1,28 +1,39 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "lib": ["es6"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
     "strict": true,
-    "jsx": "preserve",
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "@/*": ["src/*"]
     }
   },
-  "include": [
-    "nuxt.config.ts",
-    "**/*.ts",
-    "**/*.d.ts",
-    "**/*.vue"
-  ],
-  "exclude": [
-    "node_modules",
-    ".output",
-    ".nuxt"
-  ]
+  "exclude": ["./node_modules/**/*", "e2e/**/*.ts"],
+  "extends": "expo/tsconfig.base"
 }

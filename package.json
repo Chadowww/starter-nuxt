@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.68.0",
+    "@types/node": "^22.13.17",
     "@volar/typescript": "2.4.12",
     "dotenv": "^16.4.7",
     "dotenv-cli": "^7.4.4",

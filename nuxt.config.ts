@@ -2,51 +2,85 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   colorMode: {
-    dataValue: 'theme', // activate data-theme in <html>
-    preference: 'light', // default theme
+    dataValue: 'theme',
+    classSuffix: '',
+    preference: process.env.NUXT_COLOR_MODE || 'light',
+    fallback: 'light',
   },
+  compatibilityDate: '2025-04-13',
+  css: ['~/assets/css/app.css'],
   devtools: {
-    enabled: true,
+    enabled: process.env.NODE_ENV !== 'production',
     timeline: {
-      enabled: true,
+      enabled: process.env.NODE_ENV !== 'production',
     },
   },
-  i18n: {
-    defaultLocale: 'fr',
-    detectBrowserLanguage: false,
-    langDir: 'lang',
-    lazy: true,
-    locales: [
-      {
-        code: 'en',
-        dir: 'ltr',
-        file: 'en-EN.json',
-        iso: 'en-EN',
-        name: 'English',
-      },
-      {
-        code: 'fr',
-        dir: 'ltr',
-        file: 'fr-FR.json',
-        iso: 'fr-FR',
-        name: 'Français',
-      },
-    ],
-    vueI18n: './i18n.config.ts',
+  site: {
+    url: ''
+  },
+  sitemap: {
+    siteUrl: '',
+    trailingSlash: true,
+    gzip: true,
+    autoLastmod: true,
+    xls: false,
+    defaults: {
+      changefreq: 'monthly',
+      priority: 0.8,
+    },
+    routes: async () => [
+      '/',
+    ]
+  },
+  nitro: {
+    preset: process.env.NUXT_ENV_PRESET || 'static',
+  },
+  mail: {
+    message: {
+      to: 'alexandre@as-turing.fr',
+    },
+    smtp: {
+      host: 'ssl0.ovh.net',
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      }
+    }
   },
   modules: [
+    '@nuxt/devtools',
     '@nuxtjs/tailwindcss',
     'nuxt-icon',
     '@vee-validate/nuxt',
     '@hebilicious/vue-query-nuxt',
-    '@nuxtjs/i18n',
     'nuxt-svgo',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
+    '@nuxtjs/sitemap'
   ],
+  runtimeConfig: {
+    mail: {
+      smtp: {
+        host: '',
+        port: 587,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        }
+      },
+      message: {
+        to: ''
+      }
+    },
+    public: {} // tu peux ajouter ici d'autres configs accessibles en client
+  },
+  ssr: true,
   tailwindcss: {
     configPath: './tailwind.config.ts',
     editorSupport: { autocompleteUtil: { as: 'tailwindClasses' }, generateConfig: true },
   },
-  typescript: { typeCheck: true },
+  typescript: {
+    typeCheck: false,
+  },
 })
